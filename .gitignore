@@ -1,0 +1,6 @@
+# Node modules
+node_modules
+# Environment variables, edit .sample-env 
+.env
+# TypeScript build
+dist

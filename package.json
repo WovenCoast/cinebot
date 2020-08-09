@@ -1,0 +1,21 @@
+{
+  "name": "cinebot",
+  "version": "1.0.0",
+  "description": "A cool bot that powers the cinecom discord server",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rmdir dist && tsc",
+    "start": "npm run build && node dist/index.js"
+  },
+  "author": "FlameXode, ThePhoDit",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^14.0.27",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0",
+    "sqlite3": "^5.0.0",
+    "typeorm": "^0.2.25",
+    "typescript": "^3.9.7"
+  }
+}
