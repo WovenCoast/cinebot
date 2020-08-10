@@ -1,29 +1,30 @@
 import { Client, ClientOptions as DiscordClientOptions } from "discord.js";
+import { CommandHandler } from "./CommandHandler";
 
 const defaultCineClientOptions = {
     token: undefined,
+    commandsDir: "./commands",
+    eventsDir: "./events",
+    editTimeout: 1.5 * (60 * 1e3) // 1.5 minutes
 }
-interface CineClientOptions {
+export interface CineClientOptions {
     token: string;
+    commandsDir: string;
+    eventsDir: string;
+    editTimeout: number;
 }
 
 export class CineClient extends Client {
-    private cineOptions: CineClientOptions;
+    public config: CineClientOptions;
+    public commandHandler: CommandHandler;
 
     constructor(options: CineClientOptions, discordOptions?: DiscordClientOptions) {
         super(discordOptions);
-        this.cineOptions = Object.assign(options);
+        this.config = Object.assign(defaultCineClientOptions, options);
+        this.commandHandler = new CommandHandler(this);
     }
 
-    login() {
-        try {
-            if (!this.cineOptions.token) {
-                throw new Error(`Client options token, expected string, got ${this.cineOptions.token}`);
-            }
-            return super.login(this.cineOptions.token);
-        } catch (e) {
-            console.error(e);
-            process.exit(0);
-        }
+    login(token?: string): Promise<string> {
+        return super.login(token || this.config.token);
     }
 }
